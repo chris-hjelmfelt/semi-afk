@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=11 format=3 uid="uid://12duu3d2fqwp"]
 
 [ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="1_6yxmk"]
 [ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/block.tscn" id="2_kmg6f"]
+[ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="4_lldm2"]
+[ext_resource type="Resource" uid="uid://na7p6aecf485" path="res://items/fish.tres" id="5_lbbig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmx73"]
 sky_top_color = Color(0.309804, 0.435294, 0.729412, 1)
@@ -33,43 +35,48 @@ material = SubResource("StandardMaterial3D_axw0g")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wb8kh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(2000, 0, 0, 0, 0.1, 0, 0, 0, 2000, 0, 0, 0)
 mesh = SubResource("BoxMesh_aqggr")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("BoxShape3D_ukhm0")
 
 [node name="Player" parent="." instance=ExtResource("1_6yxmk")]
 
+[node name="CamOrigin" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin"]
+
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="Block" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 4.28784, 1.5, 0)
-skeleton = NodePath("../..")
+[node name="Block 1" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1.5, -5.599)
+item1 = ExtResource("4_lldm2")
 
-[node name="Block2" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1.5, -13.3491)
-skeleton = NodePath("../..")
+[node name="Block 2" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9.29021, 1.5, -2.52668)
+item1 = ExtResource("4_lldm2")
 
-[node name="Block3" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -17.9077, 1.5, -5.39636)
-skeleton = NodePath("../..")
+[node name="Block 3" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -8.68486, 1.5, 17.8253)
+item1 = ExtResource("5_lbbig")
 
-[node name="Block4" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -4.83719, 1.5, 5.58658)
-skeleton = NodePath("../..")
+[node name="Block 4" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -33.7941, 1.5, -32.1012)
+item1 = ExtResource("4_lldm2")
 
-[node name="Block5" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 14.206, 1.5, -39.7145)
-skeleton = NodePath("../..")
+[node name="Block 5" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 17.0661, 1.5, 7.28362)
+item1 = ExtResource("5_lbbig")
 
-[node name="Block6" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -50.5104, 1.5, 31.1807)
-skeleton = NodePath("../..")
+[node name="Block 6" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -47.0127, 1.5, 3.08617)
+item1 = ExtResource("5_lbbig")
 
-[node name="Block7" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 25.0704, 1.5, 5.50773)
-skeleton = NodePath("../..")
+[node name="Block 7" parent="Blocks" instance=ExtResource("2_kmg6f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 20.2062, 1.5, -21.3215)
+item1 = ExtResource("4_lldm2")

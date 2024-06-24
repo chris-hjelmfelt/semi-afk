@@ -1,20 +1,21 @@
 extends CharacterBody3D
 
 @onready var pivot = $CamOrigin
-@export var sens = 0.5
+@export var xsens = 0.25
+@export var ysens = 0.35
 @export var speed = 5.0
 @export var jump_velocity = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
-func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#func _ready():
+#	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED   <-- this breaks your click on 3D objects
 
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * sens))
-		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
+		rotate_y(deg_to_rad(-event.relative.x * xsens))
+		pivot.rotate_x(deg_to_rad(-event.relative.y * ysens))
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 
@@ -40,3 +41,4 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
+

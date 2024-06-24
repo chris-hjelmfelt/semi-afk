@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Area3D
 
 @export var item1: ItemData
 @export var quantity: int = 1
@@ -10,8 +10,9 @@ func getItem():
 	print("Collect - " + item1.name)
 
 
-func _on_area_3d_body_entered(body):
-	if body.name == "Player":
+func _on_input_event(camera, event, position, normal, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		print(str(name) + " clicked")
 		$CollectTimer.start()
 
 

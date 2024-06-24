@@ -1,36 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpahjy4x6oiul"]
+[gd_scene load_steps=5 format=3 uid="uid://bpahjy4x6oiul"]
 
 [ext_resource type="Script" path="res://scripts/collect.gd" id="1_bexyt"]
-[ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="2_ktyjl"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_63kpd"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dyjj8"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_03bcf"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="BoxMesh" id="BoxMesh_hofhb"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_e0vlb"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_adwco"]
+margin = 0.03
 
-[node name="Block" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_63kpd")
+[node name="Block" type="Area3D"]
 script = ExtResource("1_bexyt")
-item1 = ExtResource("2_ktyjl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_dyjj8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_hofhb")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_03bcf")
-
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("SphereShape3D_e0vlb")
+shape = SubResource("BoxShape3D_adwco")
 
 [node name="CollectTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
-[connection signal="input_event" from="StaticBody3D" to="." method="_on_static_body_3d_input_event"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]
