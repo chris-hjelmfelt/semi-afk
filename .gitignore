@@ -1,5 +1,6 @@
 
 .godot/
 graphics/
+models/
 *.import
 *.tmp
