@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://u2d6b1dqs56t"]
+
+[ext_resource type="Script" path="res://scripts/fish.gd" id="1_q5jvi"]
+[ext_resource type="Resource" uid="uid://na7p6aecf485" path="res://items/fish.tres" id="2_70smo"]
+[ext_resource type="Material" uid="uid://ctmbptq01c70d" path="res://textures/water_material.tres" id="3_3kpdv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dyjj8"]
+size = Vector3(1, 0.104347, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hofhb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_adwco"]
+margin = 0.03
+size = Vector3(1, 0.101898, 1)
+
+[node name="Water Tile" type="Area3D"]
+script = ExtResource("1_q5jvi")
+item1 = ExtResource("2_70smo")
+new_color = Color(0, 0.709804, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00140762, 0)
+shape = SubResource("BoxShape3D_dyjj8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_hofhb")
+surface_material_override/0 = ExtResource("3_3kpdv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52588e-05, 0)
+shape = SubResource("BoxShape3D_adwco")
+
+[node name="CollectTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]

@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=19 format=3 uid="uid://12duu3d2fqwp"]
 
 [ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="1_6yxmk"]
 [ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/block.tscn" id="2_kmg6f"]
 [ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="4_lldm2"]
 [ext_resource type="Resource" uid="uid://na7p6aecf485" path="res://items/fish.tres" id="5_lbbig"]
+[ext_resource type="PackedScene" uid="uid://u2d6b1dqs56t" path="res://scenes/water_tile.tscn" id="5_q4pcy"]
 [ext_resource type="Terrain3DStorage" uid="uid://criod3eyhkjvv" path="res://terrain_3d_storage.res" id="5_qfp5d"]
 [ext_resource type="Terrain3DTextureList" uid="uid://boxfc3xgmi623" path="res://texture_list.tres" id="6_4siaj"]
+[ext_resource type="Script" path="res://scripts/display.gd" id="8_q715g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmx73"]
 sky_top_color = Color(0.309804, 0.435294, 0.729412, 1)
@@ -120,7 +122,52 @@ item1 = ExtResource("5_lbbig")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 20.2062, 1.5, -21.3215)
 item1 = ExtResource("4_lldm2")
 
+[node name="Water Tile" parent="Blocks" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5.6829, 0, 0)
+
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("5_qfp5d")
 material = SubResource("Terrain3DMaterial_n00dh")
 texture_list = ExtResource("6_4siaj")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_q715g")
+
+[node name="Items" type="MarginContainer" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Items"]
+layout_mode = 2
+
+[node name="Wood" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Wood"]
+layout_mode = 2
+text = "Wood - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Wood"]
+layout_mode = 2
+text = "0"
+
+[node name="Fish" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fish"]
+layout_mode = 2
+text = "Fish - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Fish"]
+layout_mode = 2
+text = "0"
