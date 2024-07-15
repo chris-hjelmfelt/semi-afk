@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpahjy4x6oiul"]
+
+[ext_resource type="Script" path="res://scripts/collect.gd" id="1_bexyt"]
+[ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="2_2t5ll"]
+[ext_resource type="Texture2D" uid="uid://bgsm8ebg3ho8o" path="res://textures/mosaic of rough stone.jpg" id="2_44c62"]
+[ext_resource type="Material" uid="uid://njrqsfo4oqve" path="res://textures/brown.tres" id="3_37n21"]
+[ext_resource type="AudioStream" uid="uid://brtjgqsy2i45j" path="res://audio/recycle.wav" id="5_ht3rw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7oowt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhte6"]
+albedo_texture = ExtResource("2_44c62")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kla5l"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nubps"]
+
+[node name="Tree" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_bexyt")
+item1 = ExtResource("2_2t5ll")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("CylinderShape3D_7oowt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_jhte6")
+mesh = SubResource("CylinderMesh_kla5l")
+surface_material_override/0 = ExtResource("3_37n21")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_nubps")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ht3rw")
+
+[node name="SoundTimer" type="Timer" parent="."]
+
+[node name="CollectTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]
+[connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]

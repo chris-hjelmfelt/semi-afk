@@ -1,12 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=17 format=3 uid="uid://12duu3d2fqwp"]
 
 [ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="1_6yxmk"]
-[ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/block.tscn" id="2_kmg6f"]
-[ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="4_lldm2"]
-[ext_resource type="Resource" uid="uid://na7p6aecf485" path="res://items/fish.tres" id="5_lbbig"]
 [ext_resource type="PackedScene" uid="uid://u2d6b1dqs56t" path="res://scenes/water_tile.tscn" id="5_q4pcy"]
 [ext_resource type="Terrain3DStorage" uid="uid://criod3eyhkjvv" path="res://terrain_3d_storage.res" id="5_qfp5d"]
 [ext_resource type="Terrain3DTextureList" uid="uid://boxfc3xgmi623" path="res://texture_list.tres" id="6_4siaj"]
+[ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/tree.tscn" id="6_mn3tj"]
 [ext_resource type="Script" path="res://scripts/display.gd" id="8_q715g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmx73"]
@@ -86,44 +84,25 @@ mesh = SubResource("BoxMesh_aqggr")
 shape = SubResource("BoxShape3D_ukhm0")
 
 [node name="Player" parent="." instance=ExtResource("1_6yxmk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129893, 0.295897, 0.00420427)
+collision_layer = 4
 
 [node name="CamOrigin" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CamOrigin"]
 
-[node name="Blocks" type="Node3D" parent="."]
+[node name="Water" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.1133, 0.100853, -0.0125523)
 
-[node name="Block 1" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1.5, -5.599)
-item1 = ExtResource("4_lldm2")
+[node name="Water Tile" parent="Water" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
-[node name="Block 2" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9.29021, 1.5, -2.52668)
-item1 = ExtResource("4_lldm2")
+[node name="Water Tile3" parent="Water" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3)
 
-[node name="Block 3" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -8.68486, 1.5, 17.8253)
-item1 = ExtResource("5_lbbig")
-
-[node name="Block 4" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -33.7941, 1.5, -32.1012)
-item1 = ExtResource("4_lldm2")
-
-[node name="Block 5" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 17.0661, 1.5, 7.28362)
-item1 = ExtResource("5_lbbig")
-
-[node name="Block 6" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -47.0127, 1.5, 3.08617)
-item1 = ExtResource("5_lbbig")
-
-[node name="Block 7" parent="Blocks" instance=ExtResource("2_kmg6f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 20.2062, 1.5, -21.3215)
-item1 = ExtResource("4_lldm2")
-
-[node name="Water Tile" parent="Blocks" instance=ExtResource("5_q4pcy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5.6829, 0, 0)
+[node name="Water Tile2" parent="Water" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -3)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("5_qfp5d")
@@ -171,3 +150,29 @@ text = "Fish - "
 [node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Fish"]
 layout_mode = 2
 text = "0"
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="Tree" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83983, 1.0153, 0)
+
+[node name="Tree2" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.79502, 1.93709, -15.9535)
+
+[node name="Tree3" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75568, 1.62092, -7.95304)
+
+[node name="Tree4" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2996, 1.79743, 0.322899)
+
+[node name="Tree5" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.1216, 3.18629, -24.5524)
+
+[node name="Tree6" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.54965, 2.08835, -27.2781)
+
+[node name="Tree7" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.33112, 1.26106, 4.82188)
+
+[node name="Tree8" parent="Trees" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.0259, 4.38241, -9.829)

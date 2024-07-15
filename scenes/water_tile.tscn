@@ -20,6 +20,7 @@ new_color = Color(0, 0.709804, 1, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00140762, 0)
+visible = false
 shape = SubResource("BoxShape3D_dyjj8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -28,6 +29,7 @@ mesh = SubResource("BoxMesh_hofhb")
 surface_material_override/0 = ExtResource("3_3kpdv")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
