@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://jm3lthdi1mjc"]
+
+[ext_resource type="Shader" path="res://shaders/water_shader.gdshader" id="1_v310g"]
+[ext_resource type="Texture2D" uid="uid://j4sn1g8xdlvg" path="res://shaders/water_noise_texture_2d.tres" id="2_ftl4s"]
+[ext_resource type="Texture2D" uid="uid://cppi8kdnuu1w1" path="res://shaders/water2_noise_texture_2d.tres" id="3_d7c84"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1uac"]
+shader = ExtResource("1_v310g")
+shader_parameter/scroll1 = Vector2(0.05, 0.05)
+shader_parameter/scroll2 = Vector2(-0.05, -0.05)
+shader_parameter/distortion_strength = 0.2
+shader_parameter/tone_color = Color(0.0222154, 0.257695, 1, 1)
+shader_parameter/top_color = Color(0.280038, 0.495665, 1, 1)
+shader_parameter/light_start = 0.275
+shader_parameter/light_end = 0.4
+shader_parameter/noise1 = ExtResource("2_ftl4s")
+shader_parameter/noise2 = ExtResource("3_d7c84")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2ulee"]
+material = SubResource("ShaderMaterial_r1uac")
+size = Vector2(2000, 2000)
+
+[node name="Water2" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0.5, 0)
+mesh = SubResource("PlaneMesh_2ulee")
+skeleton = NodePath("../..")

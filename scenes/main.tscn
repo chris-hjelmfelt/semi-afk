@@ -1,11 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=28 format=3 uid="uid://12duu3d2fqwp"]
 
 [ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="1_6yxmk"]
 [ext_resource type="PackedScene" uid="uid://u2d6b1dqs56t" path="res://scenes/water_tile.tscn" id="5_q4pcy"]
 [ext_resource type="Terrain3DStorage" uid="uid://criod3eyhkjvv" path="res://terrain_3d_storage.res" id="5_qfp5d"]
 [ext_resource type="Terrain3DTextureList" uid="uid://boxfc3xgmi623" path="res://texture_list.tres" id="6_4siaj"]
 [ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/tree.tscn" id="6_mn3tj"]
+[ext_resource type="PackedScene" uid="uid://6skdggecr0si" path="res://scenes/iron.tscn" id="7_kvony"]
+[ext_resource type="Shader" path="res://shaders/water_shader.gdshader" id="8_6dsuc"]
 [ext_resource type="Script" path="res://scripts/display.gd" id="8_q715g"]
+[ext_resource type="Texture2D" uid="uid://j4sn1g8xdlvg" path="res://shaders/water_noise_texture_2d.tres" id="9_maa6n"]
+[ext_resource type="Texture2D" uid="uid://cppi8kdnuu1w1" path="res://shaders/water2_noise_texture_2d.tres" id="10_lcj61"]
+[ext_resource type="PackedScene" uid="uid://b7460w5cwl8lo" path="res://models/MiningStone.fbx" id="11_2x5os"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmx73"]
 sky_top_color = Color(0.309804, 0.435294, 0.729412, 1)
@@ -68,55 +73,96 @@ _shader_parameters = {
 "noise_texture": SubResource("NoiseTexture2D_b7f2l")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hugd0"]
+render_priority = 0
+shader = ExtResource("8_6dsuc")
+shader_parameter/albedo = Color(0.321034, 0.679458, 0.825072, 1)
+shader_parameter/albedo2 = Color(5.58317e-06, 0, 0.971488, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/texture_normal = ExtResource("9_maa6n")
+shader_parameter/texture_normal2 = ExtResource("10_lcj61")
+
+[sub_resource type="QuadMesh" id="QuadMesh_k1670"]
+material = SubResource("ShaderMaterial_hugd0")
+subdivide_width = 200
+subdivide_depth = 200
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lwfw"]
+albedo_color = Color(0.681639, 0.611369, 0.504333, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tmf8y"]
+material = SubResource("StandardMaterial3D_0lwfw")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afldd"]
+bg_color = Color(0.219501, 0.219501, 0.219501, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc420"]
+bg_color = Color(3.32704e-06, 0.32875, 0.0476444, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wb8kh")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(2000, 0, 0, 0, 0.1, 0, 0, 0, 2000, 0, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_aqggr")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_ukhm0")
-
-[node name="Player" parent="." instance=ExtResource("1_6yxmk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129893, 0.295897, 0.00420427)
-collision_layer = 4
-
-[node name="CamOrigin" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
-
-[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin"]
-
-[node name="Water" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.1133, 0.100853, -0.0125523)
-
-[node name="Water Tile" parent="Water" instance=ExtResource("5_q4pcy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-
-[node name="Water Tile3" parent="Water" instance=ExtResource("5_q4pcy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3)
-
-[node name="Water Tile2" parent="Water" instance=ExtResource("5_q4pcy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -3)
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("5_qfp5d")
 material = SubResource("Terrain3DMaterial_n00dh")
 texture_list = ExtResource("6_4siaj")
 
+[node name="Water" type="Node3D" parent="."]
+
+[node name="Water Shader" type="MeshInstance3D" parent="Water"]
+transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0.55, 0)
+mesh = SubResource("QuadMesh_k1670")
+skeleton = NodePath("../..")
+
+[node name="Blue Plane" type="MeshInstance3D" parent="Water"]
+transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0.5, 0)
+mesh = SubResource("PlaneMesh_tmf8y")
+skeleton = NodePath("../..")
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("8_q715g")
 
 [node name="Items" type="MarginContainer" parent="UI"]
+custom_minimum_size = Vector2(300, 200)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -134,10 +180,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/Items/VBoxContainer/Wood"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Wood - "
 
 [node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Wood"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "0"
 
 [node name="Fish" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
@@ -145,34 +193,158 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fish"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Fish - "
 
 [node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Fish"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "0"
 
+[node name="Iron" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Iron"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Iron - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Iron"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Fruit" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fruit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Wheat - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Fruit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Fiber" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fiber"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Fiber - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Fiber"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Progress" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -27.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Progress"]
+custom_minimum_size = Vector2(600, 20)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/outline_size = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_afldd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nc420")
+max_value = 30.0
+rounded = true
+show_percentage = false
+
+[node name="Player" parent="." instance=ExtResource("1_6yxmk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129893, 6.39026, 0.00420427)
+collision_layer = 4
+
+[node name="CamOrigin" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin"]
+
+[node name="Fishing Spots" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8138, 0.100853, -184.12)
+
+[node name="Water Tile" parent="Fishing Spots" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Water Tile3" parent="Fishing Spots" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3)
+
+[node name="Water Tile2" parent="Fishing Spots" instance=ExtResource("5_q4pcy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -3)
+
 [node name="Trees" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.97677, 0)
 
 [node name="Tree" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83983, 1.0153, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.34665, 2.25332, 0)
 
 [node name="Tree2" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.79502, 1.93709, -15.9535)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70869, 1.22125, -7.55305)
 
 [node name="Tree3" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75568, 1.62092, -7.95304)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03017, 2.79805, 6.88205)
 
 [node name="Tree4" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2996, 1.79743, 0.322899)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.1558, 1.22254, 3.33442)
 
 [node name="Tree5" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.1216, 3.18629, -24.5524)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.37692, -0.022542, -5.68525)
 
 [node name="Tree6" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.54965, 2.08835, -27.2781)
+transform = Transform3D(0.994375, -0.105917, 0, 0.105917, 0.994375, 0, 0, 0, 1, -14.39, -1.52896, -14.758)
 
 [node name="Tree7" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.33112, 1.26106, 4.82188)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4725, -1.39452, -8.1039)
 
 [node name="Tree8" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.0259, 4.38241, -9.829)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2064, 1.80702, -9.21739)
+
+[node name="Iron" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.7175, 0.717881, 48.2421)
+
+[node name="Iron" parent="Iron" instance=ExtResource("7_kvony")]
+
+[node name="Iron8" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08791, -0.533767, 0.186817)
+
+[node name="Iron2" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.928, 0, -1.202)
+
+[node name="Iron3" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.928, 0, -0.533)
+
+[node name="Iron7" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.97619, -0.324618, -1.08984)
+
+[node name="Iron4" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.857, 0, 2.346)
+
+[node name="Iron5" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, -0.228288, 2.978)
+
+[node name="Iron6" parent="Iron" instance=ExtResource("7_kvony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19323, 0.134129, 2.33478)
+
+[node name="MiningStone" parent="." instance=ExtResource("11_2x5os")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64083, 8.89903, 17.7906)
+
+[node name="MiningStone2" parent="." instance=ExtResource("11_2x5os")]
+transform = Transform3D(0.292589, 0, 0.956238, 0, 1, 0, -0.956238, 0, 0.292589, 9.66981, 8.28687, 11.4314)
+
+[node name="MiningStone3" parent="." instance=ExtResource("11_2x5os")]
+transform = Transform3D(-0.18774, -0.766997, -0.613571, 0.224415, -0.641651, 0.733432, -0.956238, 0, 0.292589, 9.66981, 7.91374, 5.97741)

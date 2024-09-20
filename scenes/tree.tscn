@@ -4,9 +4,10 @@
 [ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="2_2t5ll"]
 [ext_resource type="Texture2D" uid="uid://bgsm8ebg3ho8o" path="res://textures/mosaic of rough stone.jpg" id="2_44c62"]
 [ext_resource type="Material" uid="uid://njrqsfo4oqve" path="res://textures/brown.tres" id="3_37n21"]
-[ext_resource type="AudioStream" uid="uid://brtjgqsy2i45j" path="res://audio/recycle.wav" id="5_ht3rw"]
+[ext_resource type="AudioStream" uid="uid://oxnupq330og0" path="res://audio/Hatchet Chop.mp3" id="5_lq5ap"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7oowt"]
+height = 4.01965
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhte6"]
 albedo_texture = ExtResource("2_44c62")
@@ -14,9 +15,10 @@ albedo_texture = ExtResource("2_44c62")
 [sub_resource type="CylinderMesh" id="CylinderMesh_kla5l"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nubps"]
+height = 4.0534
 
 [node name="Tree" type="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_bexyt")
 item1 = ExtResource("2_2t5ll")
 
@@ -25,6 +27,7 @@ visible = false
 shape = SubResource("CylinderShape3D_7oowt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_jhte6")
 mesh = SubResource("CylinderMesh_kla5l")
 surface_material_override/0 = ExtResource("3_37n21")
@@ -37,12 +40,14 @@ input_ray_pickable = false
 shape = SubResource("CylinderShape3D_nubps")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_ht3rw")
+stream = ExtResource("5_lq5ap")
+volume_db = -20.0
 
 [node name="SoundTimer" type="Timer" parent="."]
+wait_time = 2.5
 
 [node name="CollectTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 30.0
 one_shot = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
