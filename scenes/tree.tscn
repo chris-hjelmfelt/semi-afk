@@ -34,6 +34,7 @@ surface_material_override/0 = ExtResource("3_37n21")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 visible = false
+collision_layer = 16
 input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]

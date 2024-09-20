@@ -4,12 +4,8 @@ extends Area3D
 @export var quantity: int = 1
 
 func _process(_delta):
-	if Globals.is_collecting == true:
+	if Globals.is_collecting == true and Globals.current_site == $".":
 		$"../../UI/Progress/ProgressBar".value = $CollectTimer.time_left
-	
-	if Input.is_action_just_pressed("collect"):
-		if Globals.is_collecting == false and Globals.current_site == $".":
-			start_collection()
 
 
 func getItem():
@@ -26,10 +22,10 @@ func start_collection():
 	$SoundTimer.start()
 
 
-func _on_input_event(_camera, event, _position, _normal, _shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if Globals.is_collecting == false:
-			start_collection()
+#func _on_input_event(_camera, event, _position, _normal, _shape_idx):
+	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		#if Globals.is_collecting == false:
+			#start_collection()
 
 
 func _on_collect_timer_timeout():	

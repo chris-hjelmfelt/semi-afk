@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var pivot = $CamOrigin
+@onready var ray = $CamOrigin/Camera3D/RayCast3D
 @export var xsens = 0.25
 @export var ysens = 0.35
 @export var speed = 5.0
@@ -8,8 +9,8 @@ extends CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
-#func _ready():
-#	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED   <-- this breaks your click on 3D objects
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED   #<-- this breaks your click on 3D objects
 
 
 func _input(event):
@@ -23,7 +24,17 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	
+		
+	if Input.is_action_just_pressed("left-click"):
+		if Globals.is_collecting == false and ray.is_colliding():
+			if ray.get_collider().has_method("start_collection"):
+				ray.get_collider().start_collection()
+		
+	if Input.is_action_just_pressed("collect"):
+		if Globals.is_collecting == false and ray.is_colliding():
+			if ray.get_collider().has_method("start_collection"):
+				ray.get_collider().start_collection()
+		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 	
