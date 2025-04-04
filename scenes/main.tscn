@@ -1,24 +1,37 @@
-[gd_scene load_steps=28 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=43 format=3 uid="uid://12duu3d2fqwp"]
 
-[ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="1_6yxmk"]
+[ext_resource type="Texture2D" uid="uid://bjpok7fa6q3rs" path="res://textures/Epic_BlueSunset_EquiRect_flat.png" id="1_0du6f"]
 [ext_resource type="PackedScene" uid="uid://u2d6b1dqs56t" path="res://scenes/water_tile.tscn" id="5_q4pcy"]
 [ext_resource type="Terrain3DStorage" uid="uid://criod3eyhkjvv" path="res://terrain_3d_storage.res" id="5_qfp5d"]
 [ext_resource type="Terrain3DTextureList" uid="uid://boxfc3xgmi623" path="res://texture_list.tres" id="6_4siaj"]
+[ext_resource type="PackedScene" uid="uid://dl3svi22tj82w" path="res://models/Prototype/Octogon.fbx" id="6_cunkt"]
 [ext_resource type="PackedScene" uid="uid://bpahjy4x6oiul" path="res://scenes/tree.tscn" id="6_mn3tj"]
+[ext_resource type="PackedScene" uid="uid://bg2joy0pddx4q" path="res://models/Prototype/Sphere.fbx" id="7_7k646"]
 [ext_resource type="PackedScene" uid="uid://6skdggecr0si" path="res://scenes/iron.tscn" id="7_kvony"]
+[ext_resource type="PackedScene" uid="uid://bdi0sfic03cs6" path="res://models/Tiny Plank Table.fbx" id="7_tileq"]
 [ext_resource type="Shader" path="res://shaders/water_shader.gdshader" id="8_6dsuc"]
+[ext_resource type="PackedScene" uid="uid://3o6cist6wwwq" path="res://models/Prototype/Ring.fbx" id="8_jxwxh"]
 [ext_resource type="Script" path="res://scripts/display.gd" id="8_q715g"]
+[ext_resource type="Texture2D" uid="uid://57rdqtsnd84m" path="res://textures/Grey Frame.png" id="9_k8rvt"]
 [ext_resource type="Texture2D" uid="uid://j4sn1g8xdlvg" path="res://shaders/water_noise_texture_2d.tres" id="9_maa6n"]
 [ext_resource type="Texture2D" uid="uid://cppi8kdnuu1w1" path="res://shaders/water2_noise_texture_2d.tres" id="10_lcj61"]
 [ext_resource type="PackedScene" uid="uid://b7460w5cwl8lo" path="res://models/MiningStone.fbx" id="11_2x5os"]
+[ext_resource type="PackedScene" uid="uid://bnhdwxeq5smt6" path="res://models/Jungle Plant.fbx" id="12_utwo4"]
+[ext_resource type="PackedScene" uid="uid://vu7wqexm3u4e" path="res://models/Prototype/Flat.fbx" id="13_7e4j0"]
+[ext_resource type="PackedScene" uid="uid://j5eqkvgpnplj" path="res://models/Prototype/Corner.fbx" id="14_arvrx"]
+[ext_resource type="PackedScene" uid="uid://bwqkw0jrdlw1v" path="res://models/Prototype/Cube.fbx" id="15_wxdek"]
+[ext_resource type="PackedScene" uid="uid://bqvy3uwhsvqu5" path="res://models/Prototype/Cylinder.fbx" id="16_vymer"]
+[ext_resource type="PackedScene" uid="uid://cws6fqddawr6j" path="res://models/Prototype/Pipe.fbx" id="17_ylnbr"]
+[ext_resource type="PackedScene" uid="uid://c88how88q4mtg" path="res://models/Prototype/Pyramid.fbx" id="18_hcym0"]
+[ext_resource type="PackedScene" uid="uid://dyk87ptq8w3v4" path="res://models/Prototype/Rod.fbx" id="19_dwj5n"]
+[ext_resource type="PackedScene" uid="uid://by7thcyjo4kx1" path="res://models/Prototype/Wall Double.fbx" id="23_wcnd8"]
+[ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="25_akwur"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dmx73"]
-sky_top_color = Color(0.309804, 0.435294, 0.729412, 1)
-sky_horizon_color = Color(0.709804, 0.788235, 0.87451, 1)
-sky_curve = 0.15529
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fdivk"]
+panorama = ExtResource("1_0du6f")
 
 [sub_resource type="Sky" id="Sky_oaejp"]
-sky_material = SubResource("ProceduralSkyMaterial_dmx73")
+sky_material = SubResource("PanoramaSkyMaterial_fdivk")
 
 [sub_resource type="Environment" id="Environment_wb8kh"]
 background_mode = 2
@@ -26,8 +39,8 @@ sky = SubResource("Sky_oaejp")
 ambient_light_source = 3
 ambient_light_color = Color(0.0784314, 0.313726, 1, 1)
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.345098, 0.364706, 0.529412, 1)
+volumetric_fog_density = 0.015
+volumetric_fog_albedo = Color(0.674175, 0.865236, 0.906224, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_axw0g"]
 albedo_color = Color(0.462745, 0.392157, 0.352941, 1)
@@ -93,7 +106,7 @@ subdivide_depth = 200
 orientation = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lwfw"]
-albedo_color = Color(0.681639, 0.611369, 0.504333, 1)
+albedo_color = Color(0.344793, 0.63744, 0.949201, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tmf8y"]
 material = SubResource("StandardMaterial3D_0lwfw")
@@ -119,8 +132,21 @@ corner_radius_bottom_left = 10
 
 [node name="Main" type="Node3D"]
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.5, 0.866025, 0, 0.866025, 0.5, -1, 2.18557e-08, -3.78552e-08, 200.292, 68.4501, 0)
+
+[node name="Player" parent="." instance=ExtResource("25_akwur")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.465, 2.83163, -30.7522)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wb8kh")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 343.201, 0)
+light_color = Color(1, 1, 0.945098, 1)
+light_energy = 5.0
+shadow_enabled = true
+shadow_opacity = 0.8
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(2000, 0, 0, 0, 0.1, 0, 0, 0, 2000, 0, 0, 0)
@@ -140,16 +166,19 @@ texture_list = ExtResource("6_4siaj")
 collision_layer = 17
 
 [node name="Water" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+metadata/_edit_lock_ = true
 
 [node name="Water Shader" type="MeshInstance3D" parent="Water"]
-transform = Transform3D(-1934.76, 0.253336, 0, -506.672, -0.967378, 0, 0, 0, 2000, 0.728621, 1.28902, -1.14063)
+transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0.01, 0)
 mesh = SubResource("QuadMesh_k1670")
 skeleton = NodePath("../..")
 
 [node name="Blue Plane" type="MeshInstance3D" parent="Water"]
-transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0.5, 0)
+transform = Transform3D(2000, 0, 0, 0, 1, 0, 0, 0, 2000, 0, 0, 0)
 mesh = SubResource("PlaneMesh_tmf8y")
 skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -179,19 +208,20 @@ grow_vertical = 2
 text = "+"
 horizontal_alignment = 1
 
-[node name="Items" type="MarginContainer" parent="UI"]
-custom_minimum_size = Vector2(300, 200)
+[node name="Items" type="TextureRect" parent="UI"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+offset_right = 250.0
+offset_bottom = 280.0
+texture = ExtResource("9_k8rvt")
+expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Items"]
 layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 246.0
 
 [node name="Wood" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
 layout_mode = 2
@@ -259,6 +289,7 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 
 [node name="Progress" type="MarginContainer" parent="UI"]
+visible = false
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = 7
@@ -288,23 +319,9 @@ max_value = 30.0
 step = 0.02
 show_percentage = false
 
-[node name="Player" parent="." instance=ExtResource("1_6yxmk")]
-transform = Transform3D(-0.64978, 0, -0.760123, 0, 1, 0, 0.760123, 0, -0.64978, -3.52056, 6.50634, 2.98487)
-collision_layer = 4
-
-[node name="CamOrigin" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
-
-[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin"]
-
-[node name="RayCast3D" type="RayCast3D" parent="Player/CamOrigin/Camera3D"]
-visible = false
-target_position = Vector3(0, 0, -3)
-hit_back_faces = false
-collide_with_areas = true
-
 [node name="Fishing Spots" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8138, 0.100853, -184.12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.6296, -0.000709474, -154.481)
+metadata/_edit_lock_ = true
 
 [node name="Water Tile" parent="Fishing Spots" instance=ExtResource("5_q4pcy")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -316,7 +333,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3)
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -3)
 
 [node name="Trees" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.97677, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.289263, 6.66517, 0.128922)
 
 [node name="Tree" parent="Trees" instance=ExtResource("6_mn3tj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.34665, 2.25332, 0)
@@ -339,11 +356,8 @@ transform = Transform3D(0.994375, -0.105917, 0, 0.105917, 0.994375, 0, 0, 0, 1, 
 [node name="Tree7" parent="Trees" instance=ExtResource("6_mn3tj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4725, -1.39452, -8.1039)
 
-[node name="Tree8" parent="Trees" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2064, 1.80702, -9.21739)
-
 [node name="Iron" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.7175, 0.717881, 48.2421)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.0068, 1.40628, 48.371)
 
 [node name="Iron" parent="Iron" instance=ExtResource("7_kvony")]
 
@@ -369,13 +383,101 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, -0.228288, 2.978)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19323, 0.134129, 2.33478)
 
 [node name="MiningStone" parent="." instance=ExtResource("11_2x5os")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64083, 8.89903, 17.7906)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.93009, 9.58743, 17.9195)
+
+[node name="Lamp" parent="MiningStone" index="1"]
+visible = false
+
+[node name="Camera" parent="MiningStone" index="2"]
+visible = false
 
 [node name="MiningStone2" parent="." instance=ExtResource("11_2x5os")]
-process_mode = 4
-transform = Transform3D(0.292589, 0, 0.956238, 0, 1, 0, -0.956238, 0, 0.292589, 9.66981, 8.28687, 11.4314)
+transform = Transform3D(0.292589, 0, 0.956238, 0, 1, 0, -0.956238, 0, 0.292589, 9.38055, 8.97527, 11.5603)
 
-[node name="MiningStone3" parent="." instance=ExtResource("11_2x5os")]
-process_mode = 4
-transform = Transform3D(-0.18774, -0.766997, -0.613571, 0.224415, -0.641651, 0.733432, -0.956238, 0, 0.292589, 9.66981, 7.91374, 5.97741)
+[node name="Lamp" parent="MiningStone2" index="1"]
+visible = false
+
+[node name="Camera" parent="MiningStone2" index="2"]
+visible = false
+
+[node name="Shrubs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.289263, 0.688402, 0.128922)
+
+[node name="Jungle Plant" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80239, 5.06222, -9.79426)
+
+[node name="Jungle Plant2" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80239, 5.63686, -5.47067)
+
+[node name="Jungle Plant3" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.08618, 10.7104, 24.4001)
+
+[node name="Jungle Plant4" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2363, 9.47254, 16.1042)
+
+[node name="Jungle Plant5" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5237, 9.07422, 13.0585)
+
+[node name="Jungle Plant6" parent="Shrubs" instance=ExtResource("12_utwo4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0193, 7.40577, 9.48105)
+
+[node name="Prototype Pieces" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75.6015, 3.31223, -69.004)
+
+[node name="Flat" parent="Prototype Pieces" instance=ExtResource("13_7e4j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0876641, 0.672088, -4.78893)
+
+[node name="Corner" parent="Prototype Pieces" instance=ExtResource("14_arvrx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28794, 1.8795, -14.8269)
+
+[node name="Cube" parent="Prototype Pieces" instance=ExtResource("15_wxdek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.05722, 2.45351, -13.7709)
+
+[node name="Cylinder" parent="Prototype Pieces" instance=ExtResource("16_vymer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19677, 2.00729, -7.34793)
+
+[node name="Pipe" parent="Prototype Pieces" instance=ExtResource("17_ylnbr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08586, 2.13889, -15.4957)
+
+[node name="Pyramid" parent="Prototype Pieces" instance=ExtResource("18_hcym0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50284, 1.79701, -10.5966)
+
+[node name="Rod" parent="Prototype Pieces" instance=ExtResource("19_dwj5n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.69096, 2.77679, -11.273)
+
+[node name="Octogon" parent="Prototype Pieces" instance=ExtResource("6_cunkt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40843, 1.77907, -3.16533)
+
+[node name="Sphere" parent="Prototype Pieces" instance=ExtResource("7_7k646")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45044, 1.55149, -6.99533)
+
+[node name="Ring" parent="Prototype Pieces" instance=ExtResource("8_jxwxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.459963, 0.763178, -1.56593)
+
+[node name="Wall Double" parent="Prototype Pieces" instance=ExtResource("23_wcnd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46669, 4.88613, -22.308)
+
+[node name="Wall Double2" parent="Prototype Pieces" instance=ExtResource("23_wcnd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.91589, 4.64936, -22.308)
+
+[node name="HomeBase" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.085, 2.72906, -35.4064)
+
+[node name="Tiny Plank Table" parent="HomeBase" instance=ExtResource("7_tileq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.90628, 0.360568, 4.26917)
+
+[node name="Tree8" parent="HomeBase" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53964, 0.870453, 10.6697)
+
+[node name="MiningStone3" parent="HomeBase" instance=ExtResource("11_2x5os")]
+transform = Transform3D(-0.18774, -0.766997, -0.613571, 0.224415, -0.641651, 0.733432, -0.956238, 0, 0.292589, 9.246, 0.939986, 26.0453)
+
+[node name="Lamp" parent="HomeBase/MiningStone3" index="1"]
+visible = false
+
+[node name="Camera" parent="HomeBase/MiningStone3" index="2"]
+visible = false
+
+[editable path="MiningStone"]
+[editable path="MiningStone2"]
+[editable path="HomeBase/MiningStone3"]

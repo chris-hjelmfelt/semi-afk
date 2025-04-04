@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_tt6fv")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 16
+collision_mask = 17
 script = ExtResource("1_7o8ou")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -22,3 +22,15 @@ mesh = SubResource("CapsuleMesh_8i0w1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8aixi")
+
+[node name="CamOrigin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60464, -0.588547)
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin"]
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="CamOrigin/Camera3D"]
+visible = false
+target_position = Vector3(0, 0, -3)
+hit_back_faces = false
+collide_with_areas = true

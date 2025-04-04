@@ -14,7 +14,7 @@ func _ready():
 
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and not Globals.isbusy:
 		rotate_y(deg_to_rad(-event.relative.x * xsens))
 		pivot.rotate_x(deg_to_rad(-event.relative.y * ysens))
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-70), deg_to_rad(70))
@@ -45,7 +45,9 @@ func _physics_process(delta):
 	
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
+	if Globals.isbusy:
+		velocity = Vector3(0,0,0)
+	elif direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 	else:
