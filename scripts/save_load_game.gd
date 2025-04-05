@@ -24,11 +24,10 @@ func load_game():
 
 
 func get_save_data() -> Dictionary:
-	var data := {
-		"items": PlayerData.items,
-	}
+	var data = PlayerData.items
 	return data
 
 
 func set_data(data):
-	PlayerData.items = data.get("items")
+	print(data)
+	PlayerData.items = data

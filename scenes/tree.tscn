@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpahjy4x6oiul"]
+[gd_scene load_steps=9 format=3 uid="uid://bpahjy4x6oiul"]
 
 [ext_resource type="Script" path="res://scripts/collect.gd" id="1_bexyt"]
 [ext_resource type="Resource" uid="uid://n6krd176bf70" path="res://items/wood.tres" id="2_2t5ll"]
@@ -6,39 +6,27 @@
 [ext_resource type="Material" uid="uid://njrqsfo4oqve" path="res://textures/brown.tres" id="3_37n21"]
 [ext_resource type="AudioStream" uid="uid://oxnupq330og0" path="res://audio/Hatchet Chop.mp3" id="5_lq5ap"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_7oowt"]
-height = 4.01965
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fs44w"]
+height = 4.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhte6"]
 albedo_texture = ExtResource("2_44c62")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_kla5l"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_nubps"]
-height = 4.0534
-
-[node name="Tree" type="Area3D"]
+[node name="Tree" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_bexyt")
 item1 = ExtResource("2_2t5ll")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-visible = false
-shape = SubResource("CylinderShape3D_7oowt")
+shape = SubResource("CylinderShape3D_fs44w")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="TreeMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_jhte6")
 mesh = SubResource("CylinderMesh_kla5l")
 surface_material_override/0 = ExtResource("3_37n21")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-visible = false
-collision_layer = 16
-input_ray_pickable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("CylinderShape3D_nubps")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_lq5ap")
@@ -51,6 +39,5 @@ wait_time = 2.5
 wait_time = 30.0
 one_shot = true
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]
 [connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]

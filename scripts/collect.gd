@@ -1,8 +1,8 @@
-extends Area3D
+extends StaticBody3D
 
 @export var item1: ItemData
 @export var quantity: int = 1
-@export var repeat:int  = 3
+var repeat: int = 0
 @onready var progress_bar = $"../../UI/Progress/ProgressBar"
 
 
@@ -12,26 +12,21 @@ func _process(_delta):
 
 
 func getItem():
-	for i in range(PlayerData.items.size()):
-		if PlayerData.items[i][0] == item1.name:
-			PlayerData.items[i][1] += quantity
+	PlayerData.items[item1.name] += quantity
 
 
 func start_collection():
 	Globals.is_collecting = true
 	Globals.isbusy = true
 	Globals.current_site = $"."
-	repeat = 3
-	$AudioStreamPlayer.play()
-	$CollectTimer.start()
-	$SoundTimer.start()
 	progress_bar.show()
-
-
-#func _on_input_event(_camera, event, _position, _normal, _shape_idx):
-	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		#if Globals.is_collecting == false:
-			#start_collection()
+	if repeat == 0:
+		$AudioStreamPlayer.play()
+		$CollectTimer.start()
+		$SoundTimer.start()
+	elif repeat < PlayerData.max_repeat:
+		repeat += 1
+	
 
 
 func _on_collect_timer_timeout():	

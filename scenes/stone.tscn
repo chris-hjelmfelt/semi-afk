@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtbp53s6nsccf"]
+
+[ext_resource type="Script" path="res://scripts/collect.gd" id="1_nqpi1"]
+[ext_resource type="Resource" uid="uid://t2pr746o16fw" path="res://items/stone.tres" id="2_mniw4"]
+[ext_resource type="PackedScene" uid="uid://1v1ae7tv258c" path="res://models/Rock01.fbx" id="3_ku4n7"]
+[ext_resource type="AudioStream" uid="uid://oxnupq330og0" path="res://audio/Hatchet Chop.mp3" id="4_4va2y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30sb2"]
+size = Vector3(1.53821, 1.04883, 2.57834)
+
+[node name="Stone" type="StaticBody3D"]
+script = ExtResource("1_nqpi1")
+item1 = ExtResource("2_mniw4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0772095, 0.0244141, 0.067337)
+shape = SubResource("BoxShape3D_30sb2")
+
+[node name="Rock" parent="." instance=ExtResource("3_ku4n7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4va2y")
+volume_db = -20.0
+
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="CollectTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]
+[connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]

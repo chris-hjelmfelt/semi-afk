@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://yi58pnjnf040"]
+
+[ext_resource type="Script" path="res://scripts/collect.gd" id="1_pnile"]
+[ext_resource type="PackedScene" uid="uid://cet3071m3pny2" path="res://models/Row Boat 01.fbx" id="2_qh3yq"]
+[ext_resource type="Resource" uid="uid://na7p6aecf485" path="res://items/fish.tres" id="2_v7s1y"]
+[ext_resource type="AudioStream" uid="uid://oxnupq330og0" path="res://audio/Hatchet Chop.mp3" id="3_hfvcs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_44ho1"]
+radius = 1.67062
+height = 11.2505
+
+[node name="Boat" type="StaticBody3D"]
+script = ExtResource("1_pnile")
+item1 = ExtResource("2_v7s1y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.42524, 0)
+shape = SubResource("CapsuleShape3D_44ho1")
+
+[node name="Rowboat" parent="." instance=ExtResource("2_qh3yq")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hfvcs")
+volume_db = -20.0
+
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="CollectTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]
+[connection signal="timeout" from="CollectTimer" to="." method="_on_collect_timer_timeout"]

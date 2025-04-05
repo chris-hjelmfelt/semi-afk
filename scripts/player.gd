@@ -31,7 +31,7 @@ func _physics_process(delta):
 				ray.get_collider().start_collection()
 		
 	if Input.is_action_just_pressed("collect"):
-		if Globals.is_collecting == false and ray.is_colliding():
+		if ray.is_colliding():
 			if ray.get_collider().has_method("start_collection"):
 				ray.get_collider().start_collection()
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://12duu3d2fqwp"]
+[gd_scene load_steps=44 format=3 uid="uid://12duu3d2fqwp"]
 
 [ext_resource type="Texture2D" uid="uid://bjpok7fa6q3rs" path="res://textures/Epic_BlueSunset_EquiRect_flat.png" id="1_0du6f"]
 [ext_resource type="PackedScene" uid="uid://u2d6b1dqs56t" path="res://scenes/water_tile.tscn" id="5_q4pcy"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://57rdqtsnd84m" path="res://textures/Grey Frame.png" id="9_k8rvt"]
 [ext_resource type="Texture2D" uid="uid://j4sn1g8xdlvg" path="res://shaders/water_noise_texture_2d.tres" id="9_maa6n"]
 [ext_resource type="Texture2D" uid="uid://cppi8kdnuu1w1" path="res://shaders/water2_noise_texture_2d.tres" id="10_lcj61"]
-[ext_resource type="PackedScene" uid="uid://b7460w5cwl8lo" path="res://models/MiningStone.fbx" id="11_2x5os"]
 [ext_resource type="PackedScene" uid="uid://bnhdwxeq5smt6" path="res://models/Jungle Plant.fbx" id="12_utwo4"]
 [ext_resource type="PackedScene" uid="uid://vu7wqexm3u4e" path="res://models/Prototype/Flat.fbx" id="13_7e4j0"]
 [ext_resource type="PackedScene" uid="uid://j5eqkvgpnplj" path="res://models/Prototype/Corner.fbx" id="14_arvrx"]
@@ -26,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://dyk87ptq8w3v4" path="res://models/Prototype/Rod.fbx" id="19_dwj5n"]
 [ext_resource type="PackedScene" uid="uid://by7thcyjo4kx1" path="res://models/Prototype/Wall Double.fbx" id="23_wcnd8"]
 [ext_resource type="PackedScene" uid="uid://ccqquewe0j256" path="res://scenes/player.tscn" id="25_akwur"]
+[ext_resource type="PackedScene" uid="uid://yi58pnjnf040" path="res://scenes/boat.tscn" id="26_gi0hq"]
+[ext_resource type="PackedScene" uid="uid://dtbp53s6nsccf" path="res://scenes/stone.tscn" id="27_ah8s0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fdivk"]
 panorama = ExtResource("1_0du6f")
@@ -236,6 +237,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "0"
 
+[node name="Stone" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Stone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Stone - "
+
+[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Stone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
 [node name="Fish" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
 layout_mode = 2
 
@@ -249,20 +263,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "0"
 
-[node name="Iron" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Items/VBoxContainer/Iron"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Iron - "
-
-[node name="Label2" type="Label" parent="UI/Items/VBoxContainer/Iron"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "0"
-
 [node name="Fruit" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fruit"]
@@ -276,6 +278,7 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 
 [node name="Fiber" type="HBoxContainer" parent="UI/Items/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/Items/VBoxContainer/Fiber"]
@@ -289,7 +292,6 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 
 [node name="Progress" type="MarginContainer" parent="UI"]
-visible = false
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = 7
@@ -309,6 +311,7 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 20
 
 [node name="ProgressBar" type="ProgressBar" parent="UI/Progress"]
+visible = false
 custom_minimum_size = Vector2(600, 20)
 layout_mode = 2
 size_flags_vertical = 4
@@ -357,7 +360,7 @@ transform = Transform3D(0.994375, -0.105917, 0, 0.105917, 0.994375, 0, 0, 0, 1, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4725, -1.39452, -8.1039)
 
 [node name="Iron" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.0068, 1.40628, 48.371)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.0068, 20.6641, 48.371)
 
 [node name="Iron" parent="Iron" instance=ExtResource("7_kvony")]
 
@@ -381,24 +384,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, -0.228288, 2.978)
 
 [node name="Iron6" parent="Iron" instance=ExtResource("7_kvony")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19323, 0.134129, 2.33478)
-
-[node name="MiningStone" parent="." instance=ExtResource("11_2x5os")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.93009, 9.58743, 17.9195)
-
-[node name="Lamp" parent="MiningStone" index="1"]
-visible = false
-
-[node name="Camera" parent="MiningStone" index="2"]
-visible = false
-
-[node name="MiningStone2" parent="." instance=ExtResource("11_2x5os")]
-transform = Transform3D(0.292589, 0, 0.956238, 0, 1, 0, -0.956238, 0, 0.292589, 9.38055, 8.97527, 11.5603)
-
-[node name="Lamp" parent="MiningStone2" index="1"]
-visible = false
-
-[node name="Camera" parent="MiningStone2" index="2"]
-visible = false
 
 [node name="Shrubs" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.289263, 0.688402, 0.128922)
@@ -466,18 +451,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.085, 2.72906, -35.4064)
 [node name="Tiny Plank Table" parent="HomeBase" instance=ExtResource("7_tileq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.90628, 0.360568, 4.26917)
 
-[node name="Tree8" parent="HomeBase" instance=ExtResource("6_mn3tj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53964, 0.870453, 10.6697)
+[node name="Boat" parent="HomeBase" instance=ExtResource("26_gi0hq")]
+transform = Transform3D(0.899276, 0, 0.437383, 0, 1, 0, -0.437383, 0, 0.899276, 22.871, -2.5437, 0)
 
-[node name="MiningStone3" parent="HomeBase" instance=ExtResource("11_2x5os")]
-transform = Transform3D(-0.18774, -0.766997, -0.613571, 0.224415, -0.641651, 0.733432, -0.956238, 0, 0.292589, 9.246, 0.939986, 26.0453)
+[node name="Tree" parent="HomeBase" instance=ExtResource("6_mn3tj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3535, 0.214671, -17.3486)
 
-[node name="Lamp" parent="HomeBase/MiningStone3" index="1"]
-visible = false
-
-[node name="Camera" parent="HomeBase/MiningStone3" index="2"]
-visible = false
-
-[editable path="MiningStone"]
-[editable path="MiningStone2"]
-[editable path="HomeBase/MiningStone3"]
+[node name="Stone" parent="HomeBase" instance=ExtResource("27_ah8s0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9846, 1.10248, 19.3457)
